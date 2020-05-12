@@ -58,9 +58,7 @@ export class Request {
   public async interpret() {
     if (this.jarInfo.providers.length === 0) {
       console.error(
-        `未匹配到接口,请验证java接口文件是否以${this.config.entry}开头,以${
-          this.providerSuffix
-        }结尾`,
+        `未匹配到接口,请验证java接口文件是否以${this.config.entry}开头,以${this.providerSuffix}结尾`,
       );
     }
     for (let providerPath of this.jarInfo.providers) {
@@ -109,5 +107,9 @@ export class Request {
 
   getTypeInfo(classPath): TypeInfoI {
     return this.typeInfo.get(classPath);
+  }
+
+  getConfig() {
+    return this.config;
   }
 }

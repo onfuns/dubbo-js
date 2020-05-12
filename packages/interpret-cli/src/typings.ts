@@ -31,7 +31,12 @@ export interface IDubboExtInfo {
   providerSuffix?: string;
 }
 
-export interface IConfig extends IDubboExtInfo {
+export interface IDubboConfigInfo {
+  dubboVersion?: string;
+  dubboGroup?: string;
+}
+
+export interface IConfig extends IDubboConfigInfo, IDubboExtInfo {
   output: string;
   jarInfo?: string;
 }
@@ -73,10 +78,10 @@ export interface IHasAst {
   (classPath: string): boolean;
 }
 
-export interface IDependItem{
-  classPath:string;
-  name:string;
-  importName:string;
+export interface IDependItem {
+  classPath: string;
+  name: string;
+  importName: string;
 }
 export interface IAddDenpend {
   (classPath: string): Promise<IDependItem>;
@@ -150,7 +155,7 @@ export interface IJClass {
   isInterface: boolean;
   isAbstract?: boolean;
   methods: IJMethod;
-  privateFields:string[];//私有变量
+  privateFields: string[]; //私有变量
   typeParams: ITypeParam[];
   values?: string[] | number[]; //枚举类型首个值;
   name: typePath;

@@ -36,6 +36,7 @@ export async function toTypescript(
 ): Promise<SourceFile> {
   log('调用转换方法 toTypescript::', intepretHandle.classPath);
   let {sourceFile, astJava} = intepretHandle;
+  const {dubboVersion, dubboGroup} = intepretHandle.request.getConfig();
 
   let lastPointIndex = astJava.name.lastIndexOf('.') + 1;
   let typeInfo = {
@@ -46,12 +47,14 @@ export async function toTypescript(
     isAbstract: astJava.isAbstract,
     isInterface: astJava.isInterface,
     isClass: !astJava.isEnum && !astJava.isInterface,
-    isProvider: astJava.name.endsWith(String(intepretHandle.providerSuffix) || 'Provider'),
+    isProvider: astJava.name.endsWith(
+      String(intepretHandle.providerSuffix) || 'Provider',
+    ),
   };
   intepretHandle.request.registerTypeInfo(typeInfo);
 
-  if(astJava.isAbstract  && !typeInfo.isProvider) {
-    console.warn('warning 抽象类型要注意了.classPath:',typeInfo.classPath);
+  if (astJava.isAbstract && !typeInfo.isProvider) {
+    console.warn('warning 抽象类型要注意了.classPath:', typeInfo.classPath);
   }
 
   try {
@@ -73,6 +76,8 @@ export async function toTypescript(
               intepretHandle.classPath.lastIndexOf('.') + 1,
             ),
             typePath: intepretHandle.classPath,
+            version: dubboVersion,
+            group: dubboGroup,
           }),
         );
       } else {

@@ -46,7 +46,7 @@ export async function extra(extraParam: IDubboExtInfo): Promise<IExtraResult> {
     execCmd.stdout.on('data', (rowData: Buffer) => {
       let output = rowData.toString('utf8');
       if (output.includes(startFlag)) {
-        jarDir = output.match(/Output at :(.*)(\nelapsed.*?s)?/)[1];
+        jarDir = output.match(/Output at: (.*)(\nelapsed.*?s)?/)[1];
       }
     });
 
@@ -54,7 +54,7 @@ export async function extra(extraParam: IDubboExtInfo): Promise<IExtraResult> {
       err += rowData.toString('utf8');
     });
 
-    execCmd.on('close', code => {
+    execCmd.on('close', (code) => {
       if (jarDir) {
         resolve({
           jarInfo: join(jarDir, '/output/deflated.json'),

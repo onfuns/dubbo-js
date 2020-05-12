@@ -78,15 +78,15 @@ export class IntepretHandle implements ITypeSearch {
     await ensureDir(parse(this.to).dir);
   }
 
-  public hasAst = classPath => {
+  public hasAst = (classPath) => {
     return this.request.hasAst(classPath);
   };
 
-  public getTypeInfo: IGetTypeInfo = classPath => {
+  public getTypeInfo: IGetTypeInfo = (classPath) => {
     return this.request.getTypeInfo(classPath);
   };
 
-  public isTypeParam = typeName => {
+  public isTypeParam = (typeName) => {
     for (let typeParamItem of this.astJava.typeParams) {
       if (typeParamItem.name === typeName) {
         return true;
