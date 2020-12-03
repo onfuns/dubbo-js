@@ -39,7 +39,7 @@ mvn install dependency:copy-dependencies
 ### step2:
 
 ```shell
-npm install interpret-dubbo2js -g
+npm install interpret-dubbo-to-typescript -g
 interpret -c dubbo.json
 ```
 
@@ -82,7 +82,7 @@ let showCaseProvider = ShowCaseProvider(dubbo);
 showCaseProvider.show();
 ```
 
-**_Tip_** `npm install interpret-util dubbo-js`;
+**_Tip_** `npm install interpret-util apache-dubbo-js;
 
 [interpret-example](https://github.com/creasy2010/interpret-example);
 
@@ -118,7 +118,7 @@ Second, the client for node.js, corresponding to the Dubbo service, such as
 import {UserRequest} from './UserRequest';
 import {UserResponse} from './UserResponse';
 import {argumentMap, JavaString} from 'interpret-util';
-import {TDubboCallResult, Dubbo} from 'dubbo2.js';
+import {TDubboCallResult, Dubbo} from 'apache-dubbo-js';
 
 export interface IDemoProvider {
   sayHello(name: JavaString): TDubboCallResult<string>;
@@ -141,7 +141,7 @@ export function DemoProvider(dubbo: Dubbo): IDemoProvider {
   });
 }
 
-//generate by interpret-cli dubbo-js
+//generate by interpret-cli apache-dubbo-js
 ```
 
 ### converter
@@ -531,7 +531,7 @@ Main steps:
 import {UserRequest} from './UserRequest';
 import {UserResponse} from './UserResponse';
 import {argumentMap, JavaString} from 'interpret-util';
-import {TDubboCallResult, Dubbo} from 'dubbo-js';
+import {TDubboCallResult, Dubbo} from 'apache-dubbo-js';
 
 export interface IDemoProvider {
   sayHello(name: JavaString): TDubboCallResult<string>;
@@ -554,17 +554,16 @@ export function DemoProvider(dubbo: Dubbo): IDemoProvider {
   });
 }
 
-//generate by interpret-cli dubbo-js
+//generate by interpret-cli apache-dubbo-js
 
 //Content of argumentMap method
 export function argumentMap() {
   let _arguments = Array.from(arguments);
 
-  return _arguments.map(
-    argumentItem =>
-      argumentItem.__fields2java
-        ? paramEnhance(argumentItem.__fields2java())
-        : argumentItem,
+  return _arguments.map((argumentItem) =>
+    argumentItem.__fields2java
+      ? paramEnhance(argumentItem.__fields2java())
+      : argumentItem,
   );
 }
 
